@@ -17,18 +17,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('profile/create', 'Admin\ProfileController@add');
+    Route::post('profile/create', 'Admin\ProfileController@create'); # 追記
+});
+
+//第3章第9部
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('profile/edit', 'Admin\ProfileController@add');
+    Route::post('profile/edit', 'Admin\ProfileController@update'); # 追記
 });
 
 //課題3
 Route::get('XXX', 'AAAControlle@bbb');
 
 //課題4
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('news/create', 'Admin\NewsController@add');
+    Route::post('news/create', 'Admin\NewsController@create'); # 追記
 });
+
 
 Auth::routes();
 
